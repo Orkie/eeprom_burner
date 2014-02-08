@@ -158,7 +158,7 @@ void eeprom_write_page(uint32_t start_address, uint32_t count, uint8_t* buffer) 
 	spi_send_byte(start_address&0xFF); spi_get();
 	int i;
 	for(i = 0 ; i < __page_size ; i++) {
-		spi_send_byte(buffer[i]); spi_get();
+		spi_send_byte(i < count ? buffer[i] : 0xFF); spi_get();
 	}
 
 	eeprom_end_command();
